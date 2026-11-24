@@ -937,13 +937,187 @@ Gennemgå til sidst kort, hvordan fejlen blev fundet: Hvor blev breakpointet sat
 
 ## Slide 63 – Samlet praktisk øvelse
 
-Sektionsslide og placeholder. Øvelsens opgave, materialer og gennemgang er endnu ikke udarbejdet; tilføj lærernoter, når de er fastlagt.
+Sektionsslide. Øvelsen varer 90 minutter og samler hele dagen i ét forløb. Deltagerne arbejder to og to i et fælles Bitbucket-repository som et lille team, der vedligeholder adresse-jobbet. Hver person løser opgaver på sin egen branch, opretter pull requests og reviewer makkerens ændringer.
 
-## Slide 64 – Opsamling og spørgsmål
+**Forberedelse** (se [underviservejledningen](../../ovelser/samlet-ovelse/README.md)):
+
+- Opret ét Bitbucket-repository pr. hold med indholdet af `ovelser/samlet-ovelse/start/` på `main`, og giv begge deltagere skriveadgang.
+- Vælg merge-strategien **Merge commit**, så revert i opgave 5 virker som beskrevet.
+- Afprøv, at deltagerne kan klone og pushe fra VS Code på kursusmaskinerne. Login til Bitbucket er den hyppigste årsag til, at øvelsen går i stå.
+- Print eller udlever opgave 5 (`ovelser/samlet-ovelse/5-ups-separator.md`) – den ligger bevidst ikke i startprojektet.
+
+Deltagerne bruger VS Codes indbyggede Git-klient til at tale med Bitbucket. Pull requests oprettes, reviewes og merges i Bitbucket i browseren. Revert kræver terminalen, da VS Code ikke har en indbygget kommando til at reverte et merge-commit.
+
+## Slide 64 – Adresse-jobbet i produktion
+
+**Fortæl:** Præsentér scenariet: Holdet har overtaget adresse-jobbet fra refactoring-afsnittet. Driften og leverandøren sender opgaver, som løses én ad gangen. Opgavesedlerne ligger i `opgaver/` i repositoryet.
+
+Gennemgå tidsplanen. Runde 1 er bygget, så de to opgaver ikke rører de samme filer. Runde 2 er bygget, så de to opgaver *gør* – det giver en konflikt, som er en planlagt del af øvelsen. De sidste 20 minutter rummer en overraskelse og en fælles opsamling.
+
+Sammenhæng med dagens emner:
+
+| Opgave | Emner |
+| --- | --- |
+| 1 – fejl i postnumre | Debugger, tests først, Git-flow |
+| 2 – ETL-klar | Entry point, logging, synlige fejl |
+| 3 – regel for vejnavn | Struktur, tests |
+| 4 – Adresse-dataclass | OOP, dataclass, struktur |
+| 5 – ups | Revert |
+| Alle | Branch, commit, PR, review, merge, konflikt |
+
+**Mulige spørgsmål**
+
+- *Hvad hvis vi ikke når det hele?* – Det er helt fint. Runde 1 og 2 er det vigtigste. Opgave 5 kan også vises som demonstration.
+- *Må vi hjælpe hinanden?* – Ja, gerne. Men skriv selv koden på jeres egen opgave, og brug reviewet til at forstå makkerens.
+
+## Slide 65 – Kom i gang
+
+**Fortæl:** Deltagerne kloner holdets repository i VS Code med **Git: Clone** og indsætter adressen fra Bitbucket (knappen **Clone** på repositoryets side). VS Code spørger, hvor det skal gemmes, og om det skal åbnes.
+
+Derefter opretter de et virtuelt miljø, installerer pytest og kører tests og jobbet. Forventet resultat: 2 tests består, og jobbet skriver "Skrev 3 af 5 rækker".
+
+Bed dem lægge mærke til resultatfilen `data/resultat.csv`: *Vestergade* mangler, og rækken uden vejnavn er med. Det er udgangspunktet for opgave 1 og 3. Bed dem også aftale, hvem der er person A og B.
+
+**Mulige spørgsmål**
+
+- *Klon fejler med en fejl om adgang eller login.* – Kontrollér, at de er logget ind på Bitbucket, og at de bruger den rigtige adresse. Ved HTTPS kræver Bitbucket typisk en app-password eller et API-token i stedet for den almindelige adgangskode – afhængigt af organisationens opsætning.
+- *Aktiveringen af `.venv` fejler i PowerShell.* – Brug kommandoprompten i VS Code-terminalen, eller spring aktiveringen over og vælg interpreteren i VS Code. Så bruger nye terminaler miljøet automatisk.
+- *Skal `.venv` committes?* – Nej, den står i `.gitignore`.
+
+## Slide 66 – Arbejdsgangen for hver opgave
+
+**Fortæl:** Gennemgå flowet, som gentages for hver opgave. Vis det gerne live i VS Code:
+
+- **Hent nyeste main:** Skift til `main` via branch-navnet nederst til venstre, og klik **Sync Changes** (eller pilene ved branch-navnet). Det henter og sender ændringer.
+- **Opret branch:** Klik på branch-navnet → **Create new branch...** → skriv navnet. Branchen oprettes fra den branch, man står på – derfor skal man stå på en opdateret `main`.
+- **Commit:** I **Source Control** (`Ctrl+Shift+G`) vises ændrede filer. `+` stager en fil, man skriver en besked og klikker **Commit**.
+- **Del branchen:** Første gang vises **Publish Branch**. Senere bruges **Sync Changes**.
+- **Pull request:** Efter publicering viser Bitbucket ofte et link til at oprette en PR. Vælg `main` som mål, og tilføj makkeren som reviewer.
+
+Terminalkolonnen viser de samme trin med kommandoer, som deltagerne kender fra Git-afsnittet.
+
+**Mulige spørgsmål**
+
+- *VS Code spørger, om den skal stage alle ændringer automatisk.* – Det er en bekvemmelighed. Det er bedre at se, hvad der committes, så svar nej, indtil man er tryg.
+- *Hvad er forskellen på Sync og Push?* – **Sync Changes** både henter (pull) og sender (push). Push sender kun.
+- *Kan PR'en oprettes fra VS Code?* – Med Atlassians udvidelse *Jira and Bitbucket* kan det lade sig gøre, men i øvelsen bruger vi Bitbucket i browseren.
+
+## Slide 67 – Review i Bitbucket
+
+**Fortæl:** Review er en central del af øvelsen. Reviewer læser ændringerne i PR'ens **Diff** og kan kommentere på enkelte linjer. Gennemgå punkterne kort.
+
+Reviewet behøver ikke at være langt, men det skal være reelt: Læs koden, og kontrollér den mod opgavesedlens "Klar, når". Opfordr reviewer til at hente branchen og køre testene, hvis der er tvivl.
+
+Når reviewer er tilfreds, klikkes **Approve**, og PR'en merges med strategien **Merge commit**. Er der kommentarer, retter forfatteren på samme branch, committer og synkroniserer – PR'en opdateres automatisk.
+
+**Mulige spørgsmål**
+
+- *Hvem merger – forfatteren eller reviewer?* – Aftal det i holdet. Mange teams lader forfatteren merge efter godkendelse.
+- *Hvad hvis vi er uenige?* – Diskutér det i PR'en eller ansigt til ansigt. Opgavesedlen er afgørende for, hvad der skal laves.
+- *Hvad betyder merge-strategierne?* – **Merge commit** bevarer branchens commits og laver et merge-commit. **Squash** samler alle commits i ét. Vi bruger merge commit, så revert i opgave 5 virker som beskrevet.
+
+## Slide 68 – Runde 1 · 30 min.
+
+**Fortæl:** Person A tager opgave 1, person B opgave 2. Hver følger opgavesedlen. Når begge PR'er er merget, henter begge `main`.
+
+**Opgave 1 – forventet løsning:** Fejlen er, at `rens_postnummer` kalder `zfill(4)` *før* `strip()`. `" 800"` er allerede fire tegn langt, så `zfill` gør ingenting, og `strip` fjerner derefter mellemrummet – resultatet `"800"` afvises. Rettelsen er `vaerdi.strip().zfill(4)`. Testen `assert rens_postnummer(" 800") == "0800"` skal skrives først og fejle. Den eksisterende test bruger `"800"` uden mellemrum og fangede derfor ikke fejlen – en god pointe om valg af testdata.
+
+I debuggeren kan man sætte et breakpoint i `rens_postnummer` og se, at `vaerdi` er `' 800'`. Med `F10` gennem linjen eller i **Debug Console** ses, at `vaerdi.zfill(4)` stadig er `' 800'`. Breakpointet rammes én gang pr. række – brug **Continue** (`F5`), indtil `vaerdi` er `' 800'`, eller et betinget breakpoint.
+
+**Opgave 2 – forventet løsning:** `koer_job` læser med `try`/`except FileNotFoundError`, logger fejlen og bruger `raise`. En løkke renser hver række, tilføjer gyldige og logger afviste med `logger.warning`. Til sidst skrives resultatet, antallet logges, og antallet returneres. `main()` sætter logging op og kalder `koer_job(INPUT_STI, OUTPUT_STI)`. Den fulde version findes i `loesning/main.py` (der dog også indeholder opgave 4).
+
+Forventet resultat efter runde 1: 3 tests består, og jobbet skriver 4 af 5 rækker og logger *Torvet* (`80a0`) som afvist.
+
+Gå rundt og hjælp. Typiske udfordringer: Branch oprettet fra en forældet `main`, glemt **Publish Branch**, forkert målbranch i PR'en og debuggeren, der starter den forkerte fil.
+
+**Mulige spørgsmål**
+
+- *Hvorfor skal testen skrives før rettelsen?* – Så man ser, at testen faktisk fanger fejlen. En test, der aldrig har fejlet, kan teste det forkerte.
+- *Skal `koer_job` have type hints som `Path` eller `str`?* – Begge virker, fordi `open` accepterer begge. `Path` passer til `config.py`.
+- *Hvordan tester jeg den manglende fil?* – Kald `koer_job` med en sti, der ikke findes, fx fra en lille testfil eller Debug Console. Bonusopgaven viser, hvordan det kan blive en test.
+
+## Slide 69 – Runde 2 · 30 min.
+
+**Fortæl:** Begge starter fra en opdateret `main`, så runde 1 er med. Person A tager opgave 3, person B opgave 4. Fortæl åbent, at de vil få en konflikt – det er meningen.
+
+**Opgave 3 – forventet løsning:** `VEJNAVN_KOLONNE = 0` i `config.py`. `er_gyldig` tjekker `raekke[VEJNAVN_KOLONNE].strip() != ""` sammen med postnummeret. Tests af en gyldig række, en tom og en med kun mellemrum.
+
+**Opgave 4 – forventet løsning:** Se `loesning/adresse.py`. `rens_adresse` returnerer en ny `Adresse` med rensede felter. `koer_job` bruger `fra_raekke` efter læsning og `til_raekke` før skrivning. `POSTNUMMER_KOLONNE` fjernes fra `config.py`. Resultatet skal være uændret: 4 af 5 rækker.
+
+Hold øje med, hvem der merger først. Den, der merger sidst, skal løse konflikten – se næste slide.
+
+**Mulige spørgsmål**
+
+- *Kan vi undgå konflikten ved at vente på hinanden?* – Ja, og det er en god strategi i praksis. Her er konflikten med vilje, så I prøver at løse en.
+- *Skal `fra_raekke` håndtere rækker med for få felter?* – Ikke i opgaven. Men det er et godt spørgsmål – og det viser sig i opgave 5.
+
+## Slide 70 – Konflikt? Sådan gør I
+
+**Fortæl:** Den, der merger sidst, ser i Bitbucket, at PR'en har konflikter og ikke kan merges. Konflikten løses lokalt på branchen:
+
+1. `git fetch origin` og `git merge origin/main` henter og fletter den nyeste `main` ind. (I VS Code: **Git: Fetch** og derefter **Git: Merge** i kommandopaletten → vælg `origin/main`.)
+2. Filer med konflikt står under **Merge Changes** i Source Control. Åbn hver fil, og klik **Resolve in Merge Editor**.
+3. Kombinér ændringerne, og klik **Complete Merge**.
+4. Kør testene, før der committes.
+5. Commit og synkronisér. PR'en opdateres og kan merges.
+
+Brug ikke `git pull origin main` her. Med nyere Git kræver det ekstra opsætning, når branches er gået i hver sin retning.
+
+**Konflikten i detaljer** (afprøvet). Hvis opgave 3 merges først, får person B konflikter i tre filer:
+
+- `config.py`: B har fjernet `POSTNUMMER_KOLONNE`, A har tilføjet `VEJNAVN_KOLONNE`. Løsning: Ingen af konstanterne – `Adresse` har navngivne felter.
+- `validering.py`: Importen og `er_gyldig` er i konflikt. Løsning: B's version med `Adresse`, *udvidet* med A's regel: `adresse.vejnavn.strip() != ""`.
+- `tests/test_validering.py`: Begge har ændret importen og tilføjet en test. Løsning: Begge tests skal med, og importen skal indeholde både `er_gyldig` og `rens_adresse`. A's test skal omskrives fra lister til `Adresse(...)`.
+
+Pointen: **Hverken "Accept Current" eller "Accept Incoming" er korrekt.** Vælger man blindt den ene side, mister man enten regel eller dataclass. Vælger man "Accept Both", fejler koden. Testene afslører, om løsningen holder. Det er derfor, de skal køres før commit.
+
+Hvis opgave 4 merges først, får person A de samme konflikter med omvendte roller. Løsningen er den samme. Den løste version findes i `loesning/`.
+
+Forventet resultat efter runde 2: 5 tests består, og jobbet skriver 3 af 5 rækker og afviser *Torvet* og rækken uden vejnavn.
+
+**Mulige spørgsmål**
+
+- *Kan vi ikke bare vælge vores egen version?* – Så forsvinder makkerens ændring. Det er den hyppigste fejl ved konflikter.
+- *Hvorfor skal A's test ændres, når den ikke var i konflikt med vores?* – Fordi `er_gyldig` nu tager en `Adresse`. Teksten kunne flettes, men koden passer ikke sammen. Testene fanger netop den slags.
+- *Vi har lavet noget forkert midt i konflikten – hvad nu?* – `git merge --abort` sætter branchen tilbage til før merge. Så kan I starte forfra.
+
+## Slide 71 – Ups! · 10 min.
+
+**Fortæl:** Udlever opgaveseddel 5 eller vis sliden. Lad holdet gennemføre ændringen hurtigt: branch, ret `SEPARATOR` til `","`, PR, godkendelse og merge.
+
+Når de kører jobbet på `main`, fejler det med `ValueError: not enough values to unpack (expected 3, got 1)`. Med komma som separator læses hver linje som ét felt, og `fra_raekke` kan ikke pakke den ud i tre. Bemærk: **Testene består stadig**, fordi de ikke dækker filindlæsningen. Det er en vigtig pointe til opsamlingen.
+
+Meddel derefter: "Leverandøren skifter først næste måned – fortryd ændringen nu." Person B reverter i terminalen som beskrevet på opgavesedlen: opdatér `main`, find merge-commit'et med `git log --oneline -5`, opret en branch, `git revert -m 1 <id>`, push og opret en PR. Merge-commit'et har beskeden *Merged in config/komma (pull request #...)*. Har Bitbucket en **Revert**-knap på den mergede PR, kan den bruges i stedet.
+
+Efter merge af fortrydelsen virker jobbet igen: 3 af 5 rækker.
+
+**Mulige spørgsmål**
+
+- *Hvorfor ikke bare ændre separatoren tilbage i en ny PR?* – Det giver samme kode og er også en løsning. Revert gør det tydeligt i historikken, at ændringen blev fortrudt, og virker også, når ændringen er større end én linje.
+- *Git åbner en editor ved revert – hvad gør jeg?* – Git beder om en commit-besked. Gem og luk filen for at bruge standardbeskeden. Brug `--no-edit` for at springe editoren over.
+- *Hvorfor fangede testene ikke fejlen?* – De tester kun reglerne, ikke læsning af filer. En integrationstest af `koer_job` med en rigtig fil – som i bonusopgaven – ville have fanget den.
+
+## Slide 72 – Opsamling på øvelsen
+
+**Fortæl:** Vis `git log --oneline --graph` på et af holdenes `main` – på storskærm eller i Bitbucket under **Commits**. Grafen viser branches, merge-commits, konfliktløsningen og revert'en. Brug den til at fortælle historien om, hvad holdet har lavet.
+
+Tag derefter en kort runde med spørgsmålene. Gode pointer at få frem:
+
+- Konflikten krævede forståelse af begge ændringer – ikke blot et valg af side.
+- Reviewet er en chance for at lære af hinandens kode – ikke kun for at finde fejl.
+- Testene fangede fejlen i opgave 1 og en dårlig konfliktløsning, men ikke separatoren i opgave 5. Tests beskytter kun det, de tester.
+- Små branches og hyppige merges giver færre og mindre konflikter.
+
+**Mulige spørgsmål**
+
+- *Er det normalt med så mange merge-commits?* – Ja, med merge-strategien merge commit. Andre teams bruger squash for en lineær historik. Begge dele er fine – det vigtige er at være enige.
+- *Hvordan kommer vi i gang med det her i vores egne projekter?* – Start med branches og pull requests for alle ændringer, og tilføj tests til de vigtigste regler, efterhånden som I alligevel ændrer koden.
+
+## Slide 73 – Opsamling og spørgsmål
 
 Sektionsslide. Brug ca. 5–10 minutter. Sig tak for dagen, og forklar, at vi samler op på de vigtigste pointer, før der er tid til spørgsmål.
 
-## Slide 65 – Dagens vigtigste pointer
+## Slide 74 – Dagens vigtigste pointer
 
 **Fortæl:** Gennemgå pointerne og kobl hver af dem til det, deltagerne har prøvet i løbet af dagen:
 

@@ -151,6 +151,9 @@ style: |
     font-size: 28px;
     color: black;
   }
+  section.code .small table {
+    font-size: 22px;
+  }
 
 header:  ![Septima](../../ressources/logo/septima.svg "Septima")
 
@@ -1200,7 +1203,169 @@ To og to (15 min.) – med det udleverede script, som giver et forkert resultat:
 <!-- backgroundColor: #397c67 -->
 
 <h1 style="position:absolute;top:300px;left:75px;right:75px;font-size:60px;">Samlet praktisk øvelse</h1>
-<!-- TODO: Indhold tilføjes -->
+
+---
+<!-- backgroundColor: #2e495c -->
+<!-- _class: code -->
+
+<h1 class="slide_heaader">Adresse-jobbet i produktion</h1>
+
+I er et team på to, der vedligeholder adresse-jobbet. Opgaverne kommer som opgavesedler.
+
+| Tid | Person A | Person B |
+| --- | --- | --- |
+| 0–10 min. | Kom i gang | Kom i gang |
+| 10–40 min. | Opgave 1: fejl i postnumre | Opgave 2: gør jobbet ETL-klar |
+| 40–70 min. | Opgave 3: ny regel for vejnavn | Opgave 4: Adresse-dataclass |
+| 70–90 min. | Overraskelse og opsamling | |
+
+---
+<!-- backgroundColor: #2e495c -->
+<!-- _class: code -->
+
+<h1 class="slide_heaader">Kom i gang</h1>
+
+1. Klon holdets repository: `Ctrl+Shift+P` → **Git: Clone** → adressen fra Bitbucket
+2. Opret miljøet og kør projektet i terminalen:
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+python -m pytest
+python main.py
+```
+
+3. Vælg `.venv` med **Python: Select Interpreter**, og aftal, hvem der er A og B
+
+---
+<!-- backgroundColor: #2e495c -->
+<!-- _class: code -->
+
+<h1 class="slide_heaader">Arbejdsgangen for hver opgave</h1>
+
+<div class="small">
+
+| Trin | I VS Code | I terminalen |
+| --- | --- | --- |
+| Hent nyeste main | Skift til `main` → **Sync Changes** | `git switch main` · `git pull` |
+| Opret branch | Branch-navnet nederst → **Create new branch** | `git switch -c navn` |
+| Commit | **Source Control** → `+` → besked → **Commit** | `git add` · `git commit` |
+| Del branchen | **Publish Branch** | `git push -u origin navn` |
+| Pull request | Opret på Bitbucket mod `main` med makkeren som reviewer | |
+
+</div>
+
+---
+<!-- backgroundColor: #2e495c -->
+<!-- _class: code -->
+
+<h1 class="slide_heaader">Review i Bitbucket</h1>
+
+* Gør ændringen det, opgavesedlen beder om?
+* Er koden til at forstå – navne, struktur, ansvar?
+* Er der tests, og består de?
+* Kommentér **konkret og venligt** – det handler om koden, ikke personen
+* Godkend med **Approve**, og merge med **Merge commit**
+
+---
+<!-- backgroundColor: #b8063b -->
+<!-- _class: code -->
+
+<h1 class="slide_heaader">Runde 1 · 30 min.</h1>
+
+<div class="columns">
+<div>
+
+**Person A – opgave 1**
+Fejlrapport: postnumre med mellemrum bliver afvist
+
+*Debugger · tests først*
+
+</div>
+<div>
+
+**Person B – opgave 2**
+Gør jobbet klar til ETL-værktøjet
+
+*Entry point · logging · fejl*
+
+</div>
+</div>
+
+Opgavesedlerne ligger i `opgaver/`. Opret PR, og review hinandens ændringer.
+
+---
+<!-- backgroundColor: #b8063b -->
+<!-- _class: code -->
+
+<h1 class="slide_heaader">Runde 2 · 30 min.</h1>
+
+<div class="columns">
+<div>
+
+**Person A – opgave 3**
+Ny regel: vejnavn må ikke være tomt
+
+*Struktur · tests*
+
+</div>
+<div>
+
+**Person B – opgave 4**
+Indfør en `Adresse`-dataclass
+
+*OOP · struktur*
+
+</div>
+</div>
+
+Start fra en **opdateret main**. I ændrer i de samme filer – den, der merger sidst, får en konflikt.
+
+---
+<!-- backgroundColor: #2e495c -->
+<!-- _class: code -->
+
+<h1 class="slide_heaader">Konflikt? Sådan gør I</h1>
+
+1. Hent den nyeste main ind i jeres branch:
+
+```bash
+git fetch origin
+git merge origin/main
+```
+
+2. Åbn hver fil med konflikt → **Resolve in Merge Editor**
+3. Kombinér ændringerne – ofte er **ingen af siderne rigtig alene**
+4. Kør `python -m pytest` – **før** I afslutter
+5. **Complete Merge** → **Commit** → **Sync Changes**
+
+---
+<!-- backgroundColor: #b8063b -->
+<!-- _class: code -->
+
+<h1 class="slide_heaader">Ups! · 10 min.</h1>
+
+Leverandøren meddeler, at adressefilerne fremover bliver **kommaseparerede**.
+
+1. Person A ændrer `SEPARATOR` til `","` – PR, review og merge
+2. Hent main, og kør `python main.py`. Hvad sker der?
+3. Person B fortryder ændringen med en **revert** – se opgaveseddel 5
+
+---
+<!-- backgroundColor: #2e495c -->
+<!-- _class: code -->
+
+<h1 class="slide_heaader">Opsamling på øvelsen</h1>
+
+```bash
+git log --oneline --graph
+```
+
+* Hvad var svært ved konflikten – og hvordan løste I den?
+* Hvad fangede jeres review?
+* Hvad fangede testene – og hvad fangede de **ikke**?
+* Hvad ville I gøre anderledes i jeres egen kode?
 
 ---
 <!-- backgroundColor: #2e495c -->

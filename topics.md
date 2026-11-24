@@ -16,7 +16,7 @@ Ca. 5 timer og 15 minutter fagligt indhold og øvelser. Pauser og frokost kommer
 | 35 min. | OOP: hvornår giver en class værdi frem for en funktion? |
 | 40 min. | Tests: skriv eller kør en enkel test før og efter en ændring |
 | 35 min. | Afvikling i ETL-miljøet og fejlfinding i VS Code |
-| 90 min. | Samlet praktisk øvelse med kode, tests og Git |
+| 90 min. | Samlet praktisk øvelse: teamarbejde i Bitbucket med branches, PR, review, konflikt og revert |
 
 ## Formål
 
@@ -237,7 +237,7 @@ Undervisningen vil primært bestå af:
 - Git-øvelser
 - Arbejde direkte i VS Code
 
-En gennemgående øvelse kan udvikles løbende gennem kurset, så deltagerne oplever, hvordan et simpelt Python-script gradvist kan udvikles til en mere struktureret og vedligeholdelig løsning.
+Dagen afsluttes med en samlet øvelse på 90 minutter, "Adresse-jobbet i produktion". Deltagerne arbejder to og to i et fælles Bitbucket-repository via VS Code. De løser opgavesedler på hver sin branch, opretter pull requests, reviewer hinandens ændringer, løser en planlagt merge-konflikt og fortryder en merget ændring med revert. Opgaverne dækker debugger og tests, ETL-klar kode med logging, en ny valideringsregel og en dataclass. Materialet ligger i [ovelser/samlet-ovelse](ovelser/samlet-ovelse/README.md).
 
 ---
 
