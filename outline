@@ -1,0 +1,54 @@
+
+## Kursets format
+
+- To kursusdage
+- Syv timer pr. dag inklusive pauser
+- Cirka 5,5 timers aktiv undervisning og øvelser pr. dag
+- Hands-on arbejde i eksisterende kodebase
+- Progression fra guidede ændringer til en case
+
+## Dag 1: Python, projektforståelse og DLT
+
+- Navigere i en eksisterende Python-kodebase
+- Følge dataflowet fra datakontrakt til datavarehus
+- Arbejde med 'dlt' pipelines og resources
+- Skrive Python, der passer ind i den eksisterende arkitektur
+- Implementere et simpelt load-scenarie
+- Introducere logging og datakvalitet
+
+## Dag 2: God kodeskik og Git
+
+- Skrive læsbar og vedligeholdelig kode
+- Teste fejlscenarier og edge cases
+- Debugge med stack traces, logging og breakpoints
+- Arbejde med branching og commits sammen og hver for sig
+- Gennemføre et code review flow
+
+
+## Økonomi og afvikling
+
+### Første kursusgang
+
+- 14 timers afholdelse over to dage inklusive pauser
+- Cirka 11 timers aktiv undervisning og øvelser
+- 30-40 timers forberedelse og udvikling af materialer
+- Prisinterval: **74.000 - 90.000 kr.**
+
+
+### Efterfølgende identiske kursusgange
+
+- 14 timers afholdelse over to dage inklusive pauser
+- Cirka 11 timers aktiv undervisning og øvelser
+- 3 - 6 timers tilpasning og forberedelse
+- Prisinterval: **30.000 - 35.0000 kr. pr. kursusafholdelse**
+
+
+## Forudsætninger for tilbuddet
+
+- Deltagerne har grundlæggende Python-kendskab
+- Kursusmaterialet kan genbruges ved identiske gentagelser
+
+
+
+
+
