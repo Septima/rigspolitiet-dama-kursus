@@ -421,6 +421,38 @@ git status
 Brug `git status` undervejs, hvis du er i tvivl om, hvor du er.
 
 ---
+<!-- backgroundColor: #b8063b -->
+<!-- _class: code -->
+
+<h1 class="slide_heaader">Øvelse: jeres første pull request</h1>
+
+To og to (15 min.) – i holdets Git-øvelsesrepository på Bitbucket:
+
+1. Klon repositoryet i VS Code: **Git: Clone**
+2. Opret hver jeres branch, fx `anna/praesentation`
+3. Opret filen `deltagere/<jeres navn>.md` med et par linjer om jer selv
+4. Commit, og publicér branchen
+5. Opret en pull request – makkeren reviewer og merger
+
+Se øvelse 1 i øvelsesvejledningen.
+
+---
+<!-- backgroundColor: #b8063b -->
+<!-- _class: code -->
+
+<h1 class="slide_heaader">Øvelse: jeres første konflikt</h1>
+
+To og to (15 min.):
+
+1. Hent den nyeste main, og opret hver jeres nye branch
+2. Ret **begge** linjen `Holdets navn:` i `holdet.md` til jeres eget forslag
+3. Commit, publicér, og opret hver jeres pull request
+4. Merge den ene – den anden PR får nu en **konflikt**
+5. Løs konflikten i VS Code, commit, og merge
+
+Se øvelse 1 i øvelsesvejledningen.
+
+---
 <!-- backgroundColor: #2e495c -->
 
 <h1 style="position:absolute;top:270px;left:75px;right:75px;font-size:60px;">Python-struktur<br>og refactoring</h1>
@@ -435,14 +467,14 @@ Brug `git status` undervejs, hvis du er i tvivl om, hvor du er.
 import csv
 
 rows = []
-with open("C:/data/adresser.csv", encoding="utf-8") as f:
+with open("data/adresser.csv", encoding="utf-8") as f:
     for r in csv.reader(f, delimiter=";"):
         pn = r[2].strip().zfill(4)
         if len(pn) == 4 and pn.isdigit():
             rows.append([r[0], r[1], pn])
         else:
             print("Fejl:", r)
-with open("C:/data/resultat.csv", "w", encoding="utf-8", newline="") as f:
+with open("data/resultat.csv", "w", encoding="utf-8", newline="") as f:
     csv.writer(f, delimiter=";").writerows(rows)
 ```
 
@@ -603,13 +635,15 @@ Små skridt gør det let at finde fejlen – og at gå tilbage.
 
 <h1 class="slide_heaader">Øvelse: refaktorér scriptet</h1>
 
-To og to (25 min.) – med det udleverede script:
+To og to (25 min.) – med `adresse_script.py`:
 
 1. Opret en branch: `git switch -c refactoring`
 2. Flyt stier og kolonnenumre op som konstanter
 3. Udtræk funktioner til læsning, rensning, validering og skrivning
 4. Har I tid: del koden op i moduler
 5. Kør scriptet og commit efter hvert skridt
+
+Se øvelse 2 i øvelsesvejledningen.
 
 ---
 <!-- backgroundColor: #2e495c -->
@@ -833,6 +867,8 @@ Diskutér to og to (10 min.): Hvad ville I vælge – og hvorfor?
 3. En række med `id`, `navn` og `dato`, der sendes mellem trin
 4. Fem funktioner, der alle tager `sti`, `separator` og `encoding`
 
+Se øvelse 3 i øvelsesvejledningen.
+
 ---
 <!-- backgroundColor: #2e495c -->
 <!-- _class: code -->
@@ -994,6 +1030,8 @@ To og to (20 min.) – i jeres refaktorerede projekt:
 3. Kør `python -m pytest`
 4. Lav bevidst en fejl i en funktion – se testen fejle – ret den igen
 5. Commit testene
+
+Se øvelse 4 i øvelsesvejledningen.
 
 ---
 <!-- backgroundColor: #2e495c -->
@@ -1191,13 +1229,15 @@ Tilføjes under `configurations` i `.vscode/launch.json`. Arbejdsmappe og miljø
 
 <h1 class="slide_heaader">Øvelse: find fejlen med debuggeren</h1>
 
-To og to (15 min.) – med det udleverede script, som giver et forkert resultat:
+To og to (15 min.) – med debug-projektet, som giver et forkert resultat:
 
 1. Sæt et breakpoint, og start med `F5`
 2. Gå linje for linje, og følg værdierne i **Variables**
 3. Find og ret fejlen
 4. Skriv en test, der havde fanget den, og kør `python -m pytest`
 5. Commit rettelsen og testen
+
+Se øvelse 5 i øvelsesvejledningen.
 
 ---
 <!-- backgroundColor: #397c67 -->
@@ -1210,7 +1250,7 @@ To og to (15 min.) – med det udleverede script, som giver et forkert resultat:
 
 <h1 class="slide_heaader">Adresse-jobbet i produktion</h1>
 
-I er et team på to, der vedligeholder adresse-jobbet. Opgaverne kommer som opgavesedler.
+I er et team på to, der vedligeholder adresse-jobbet. Opgaverne står i øvelse 6 i øvelsesvejledningen.
 
 | Tid | Person A | Person B |
 | --- | --- | --- |

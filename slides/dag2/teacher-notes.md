@@ -1,6 +1,8 @@
 # Lærernoter – dag 2
 
-Noterne følger rækkefølgen i [slidesene](./slides.md). Git-afsnittet er en overordnet introduktion for begyndere; noterne støtter underviseren og behøver ikke blive gennemgået i alle detaljer. Øvelsen udarbejdes senere.
+Noterne følger rækkefølgen i [slidesene](./slides.md). Git-afsnittet er en overordnet introduktion for begyndere; noterne støtter underviseren og behøver ikke blive gennemgået i alle detaljer.
+
+Deltagerne har en [øvelsesvejledning](./oevelsesvejledning.md) med udførlige beskrivelser af alle øvelser og samlede løsninger bagerst. Øvelsesslides henviser til øvelsens nummer i vejledningen. Materialerne til øvelserne ligger i [ovelser/](../../ovelser/).
 
 Under **Mulige spørgsmål** står spørgsmål, deltagerne sandsynligvis stiller, med korte svar. Svarene er udgangspunkter – tilpas dem til deltagernes egen platform og arbejdsgang.
 
@@ -14,13 +16,15 @@ Præsentér underviser og tidspunkt, når de er fastlagt.
 
 Fortæl, at vi starter med Git, fordi versionsstyring giver et sikkert udgangspunkt for resten af dagens kodearbejde. Derefter ser vi på struktur, OOP og tests, inden vi kobler kode og fejlfinding til ETL-miljøet.
 
-Tiderne er vejledende og omfatter både oplæg og arbejde med eksempler. Pauser og frokost kommer oveni. Den samlede øvelse udvikles senere.
+Tiderne er vejledende og omfatter både oplæg og øvelser. Pauser og frokost kommer oveni.
 
 ## Slide 3 – Git-grundlag
 
 Sæt forventningen: Målet er at forstå den typiske arbejdsgang, når flere arbejder sammen om kode. Deltagerne behøver ikke kunne alle kommandoer udenad.
 
-Afsnittet varer ca. 55 minutter: omkring 25 minutters oplæg og demonstration, efterfulgt af ca. 30 minutters guidet øvelse, hvor deltagerne selv gennemfører flowet. Hold oplægget kort, så der er tid til øvelsen.
+Afsnittet varer ca. 55 minutter: omkring 25 minutters oplæg og demonstration, efterfulgt af ca. 30 minutters guidet øvelse, hvor deltagerne selv gennemfører flowet (øvelse 1 i øvelsesvejledningen). Hold oplægget kort, så der er tid til øvelsen.
+
+**Forberedelse:** Opret ét Git-øvelsesrepository pr. hold på Bitbucket med indholdet af `ovelser/git-ovelse/start/` på `main`, og giv begge deltagere skriveadgang. Vælg merge-strategien **Merge commit**. Afprøv på forhånd, at deltagerne kan klone og pushe fra VS Code.
 
 Vi følger en ændring fra `main`, over en branch og et commit, til en pull request og merge. Konflikter introduceres overordnet; det er helt normalt at bede om hjælp, når de skal løses.
 
@@ -234,7 +238,7 @@ Opsummér den samlede arbejdsgang:
 3. Push branchen, og opret en PR med en beskrivelse.
 4. Gennemgå ændringerne, håndtér eventuelle konflikter, og merge efter teamets regler.
 
-Understreg, at `git status` er et nyttigt orienteringspunkt undervejs. Bed deltagerne fortælle, hvor ændringen findes efter et commit, efter push og efter merge. Den praktiske øvelse planlægges separat.
+Understreg, at `git status` er et nyttigt orienteringspunkt undervejs. Bed deltagerne fortælle, hvor ændringen findes efter et commit, efter push og efter merge. Derefter følger den guidede Git-øvelse.
 
 **Mulige spørgsmål**
 
@@ -242,15 +246,47 @@ Understreg, at `git status` er et nyttigt orienteringspunkt undervejs. Bed delta
 - *Hvad hvis main har ændret sig, mens jeg arbejdede?* – Hent den nyeste `main` ind i din branch, løs eventuelle konflikter, og push igen, før PR'en merges.
 - *Hvor finder jeg hjælp bagefter?* – `git status` foreslår ofte næste skridt, `git help <kommando>` viser dokumentation, og kolleger og platformens vejledninger er gode kilder.
 
-## Slide 17 – Python-struktur og refactoring
+## Slide 17 – Øvelse: jeres første pull request
+
+**Fortæl:** Første halvdel af den guidede Git-øvelse (15 min.). Deltagerne arbejder to og to i holdets Git-øvelsesrepository. Indholdet er bevidst enkelt – en lille tekstfil om hver deltager – så al opmærksomhed er på Git-flowet. Den fulde beskrivelse står i øvelse 1 i øvelsesvejledningen.
+
+Demonstrér første gang på storskærm: klon med **Git: Clone**, opret en branch via branch-navnet nederst til venstre, commit i **Source Control**, **Publish Branch** og opret en PR på Bitbucket. Lad derefter deltagerne gøre det selv.
+
+Hver deltager opretter sin egen fil i `deltagere/`, så de to PR'er ikke rører de samme linjer og kan merges uden konflikt. Begge skal både oprette en PR og reviewe makkerens.
+
+Typiske udfordringer: login til Bitbucket, ændringer lavet direkte på `main` fordi branchen ikke blev oprettet, og PR'er med forkert målbranch.
+
+**Mulige spørgsmål**
+
+- *Hvorfor skal vi oprette en mappe, der ikke findes?* – Git holder kun styr på filer. Mappen oprettes, når den første fil lægges i den.
+- *Hvad skriver man i PR-beskrivelsen?* – Kort, hvad der er ændret og hvorfor. Her: "Tilføjer min præsentation."
+- *Kan jeg godkende min egen PR?* – Bitbucket tillader det ikke i alle opsætninger, og det er pointen med review, at en anden kigger med.
+
+## Slide 18 – Øvelse: jeres første konflikt
+
+**Fortæl:** Anden halvdel af Git-øvelsen (15 min.). Begge ændrer den samme linje i `holdet.md` på hver sin branch, så den PR, der merges sidst, får en konflikt. Fortæl gerne på forhånd, at konflikten er meningen.
+
+Konflikten løses lokalt: **Git: Fetch**, **Git: Merge** → `origin/main`, og derefter **Resolve in Merge Editor**. Gennemgå merge editoren på storskærm for det første hold, der får konflikten: de to versioner øverst og resultatet nederst. Opfordr til at kombinere forslagene, så ingen ændring forsvinder ubevidst. Afslut med **Complete Merge**, **Commit** og **Sync Changes**.
+
+Konfliktmarkeringerne i filen (`<<<<<<<`, `=======`, `>>>>>>>`) er vist i løsningen til øvelse 1 i øvelsesvejledningen.
+
+Afslut øvelsen med en kort runde: Hvad skete der i Bitbucket, da PR'en fik konflikt? Hvordan så det ud i VS Code? Deltagerne skal møde en mere realistisk konflikt i kode i den samlede øvelse sidst på dagen.
+
+**Mulige spørgsmål**
+
+- *Hvorfor løser vi ikke konflikten direkte i Bitbucket?* – Det kan nogle platforme, men lokalt kan man køre koden og testene, før konfliktløsningen committes. Det er vigtigt, når konflikten er i kode.
+- *Hvad hvis vi begge har skrevet det samme?* – Så kan Git ofte selv se, at ændringerne er ens, og der opstår ingen konflikt.
+- *Vi klikkede forkert i merge editoren – hvad nu?* – Ret resultatet direkte i filen, eller afbryd med `git merge --abort` og start forfra.
+
+## Slide 19 – Python-struktur og refactoring
 
 Sektionsslide. Afsnittet varer ca. 60 minutter: ca. 25 minutters oplæg, 25 minutters refactoring-øvelse og 10 minutters fælles gennemgang. Hold oplægget kort, så der er tid til øvelsen.
 
 Introducér overgangen: Nu hvor vi ved, hvordan vi samarbejder sikkert om kode med Git, ser vi på, hvordan selve koden gøres lettere at forstå og ændre. Vi tager udgangspunkt i ét lille script, som går igen resten af dagen i tests og ETL-afsnittet.
 
-**Forberedelse:** Deltagerne skal have det udleverede script og en lille CSV-fil med testdata i et Git-repository. Scriptet svarer til koden på næste slide; testdata bør indeholde mindst én række med et postnummer, der skal have et nul foran, og én ugyldig række.
+**Forberedelse:** Udlever `ovelser/refactoring/start/` med `adresse_script.py` og `data/adresser.csv` (øvelse 2 i øvelsesvejledningen). Scriptet er det samme som på næste slide. Testdata indeholder en række med et postnummer, der skal have et nul foran, og én ugyldig række. Løsningen ligger i `ovelser/refactoring/loesning/` og giver præcis samme resultatfil som scriptet.
 
-## Slide 18 – Udgangspunktet: et script, der virker
+## Slide 20 – Udgangspunktet: et script, der virker
 
 **Fortæl:** Scriptet læser en CSV-fil med adresser, retter postnumre op ved at fjerne mellemrum og tilføje et nul foran, sorterer ugyldige rækker fra og skriver resultatet til en ny fil. Det virker – og det er sådan, meget kode starter.
 
@@ -263,7 +299,7 @@ Undgå at gøre grin med koden. Pointen er, at det er helt naturligt at starte s
 - *Hvad er der galt med koden, når den virker?* – Intet, så længe den ikke skal ændres. Problemerne opstår, når den skal ændres, genbruges eller fejlsøges.
 - *Hvorfor `newline=""`?* – Det anbefales af `csv`-modulet ved skrivning, så der ikke opstår ekstra tomme linjer på Windows.
 
-## Slide 19 – Hvad gør det svært?
+## Slide 21 – Hvad gør det svært?
 
 **Fortæl:** Lad gerne deltagerne komme med bud, før punkterne vises.
 
@@ -278,7 +314,7 @@ Undgå at gøre grin med koden. Pointen er, at det er helt naturligt at starte s
 - *Er korte navne ikke okay i små løkker?* – I meget korte løkker kan `i` eller `r` være fint. Men når variablen bruges over flere linjer eller har en særlig betydning, som et postnummer, er et beskrivende navn bedre.
 - *Hvornår er et script stort nok til at blive delt op?* – Når det bliver svært at overskue, eller når dele skal genbruges eller testes. Det handler mere om ansvar end om antal linjer.
 
-## Slide 20 – Én funktion – én opgave
+## Slide 22 – Én funktion – én opgave
 
 **Fortæl:** Første skridt er at dele scriptet op i funktioner, hvor hver funktion har én opgave: læse, rense, validere eller skrive. `...` betyder, at indholdet er udeladt på sliden.
 
@@ -291,7 +327,7 @@ Test for, om en funktion gør for meget: Kan man beskrive, hvad den gør, uden a
 - *Bliver der ikke alt for mange små funktioner?* – Det kan ske, men det er sjældent problemet i praksis. Små funktioner med gode navne er lettere at læse end én lang. Del, når det gør koden tydeligere.
 - *Hvor lang må en funktion være?* – Der er ingen fast grænse. Hvis den ikke kan overskues på én skærm, eller den har flere opgaver, er det et tegn på, at den kan deles.
 
-## Slide 21 – Argumenter og returværdier
+## Slide 23 – Argumenter og returværdier
 
 **Fortæl:** Den første version ændrer en global liste. For at forstå, hvad den gør, skal man kende listen og vide, hvem der ellers ændrer den. Den er også svær at teste, fordi resultatet afhænger af, hvad der ligger i listen i forvejen.
 
@@ -304,7 +340,7 @@ Kobl til begrebet *scope*: Variabler, der oprettes i en funktion, findes kun i f
 - *Er globale variabler altid forkerte?* – Konstanter, som ikke ændres, er fine på modulniveau. Det er globale variabler, der ændres undervejs, der giver problemer.
 - *Hvad er en list comprehension?* – `[r for r in raekker if er_gyldig(r)]` er en kort måde at lave en ny liste på. Den svarer til en `for`-løkke med `if` og `append`.
 
-## Slide 22 – Adskil regler og sideeffekter
+## Slide 24 – Adskil regler og sideeffekter
 
 **Fortæl:** En *sideeffekt* er alt, hvad en funktion gør ud over at returnere en værdi: læse eller skrive filer, tale med en database, printe eller logge. Sideeffekter er nødvendige, men gør koden sværere at teste og genbruge.
 
@@ -317,7 +353,7 @@ Brug diagrammet: Data læses ind, reglerne arbejder på data i hukommelsen, og r
 - *Er logging også en sideeffekt?* – Ja, men den er sjældent et problem for test. Det vigtige er, at reglerne ikke afhænger af filer eller databaser.
 - *Hvad hvis data er for store til at ligge i hukommelsen?* – Så kan man læse og behandle data i bidder, fx række for række. Princippet om at adskille regler fra I/O er det samme.
 
-## Slide 23 – Navne og konstanter
+## Slide 25 – Navne og konstanter
 
 **Fortæl:** Værdier, der har en betydning, får et navn. `POSTNUMMER_KOLONNE = 2` forklarer, hvad tallet 2 betyder, og der er kun ét sted at ændre det. STORE BOGSTAVER er Pythons konvention for konstanter – værdier, der ikke ændres, mens programmet kører.
 
@@ -330,7 +366,7 @@ Type hints, fx `-> str`, viser, hvad en funktion forventer og returnerer. De gø
 - *Skal vi bruge danske eller engelske navne?* – Det vigtigste er at være konsekvent og følge teamets praksis. Undgå at blande sprog i samme navn. Æ, ø og å virker i Python-navne, men mange undgår dem for at være på den sikre side.
 - *Hvad er konventionen for navne i Python?* – `snake_case` til funktioner og variabler, `PascalCase` til classes og `STORE_BOGSTAVER` til konstanter. Det står i stilguiden PEP 8.
 
-## Slide 24 – Del koden op i moduler
+## Slide 26 – Del koden op i moduler
 
 **Fortæl:** Et modul er blot en `.py`-fil. Når koden vokser, kan funktionerne deles i moduler efter ansvar: `config.py` til stier og konstanter, `filer.py` til læsning og skrivning, `validering.py` til reglerne og `main.py` til at binde det hele sammen.
 
@@ -344,7 +380,7 @@ Princippet for opdelingen: Det, der ændres af samme grund, ligger sammen. Ændr
 - *Hvorfor får jeg `ModuleNotFoundError`?* – Python finder moduler ud fra mappen med det script, der startes, og installerede pakker. Kontrollér, hvilken mappe der køres fra, og at filnavnet er stavet rigtigt.
 - *Hvad er `__pycache__`-mappen?* – Python gemmer en kompileret udgave af modulerne for at starte hurtigere. Den kan slettes og bør ikke i Git.
 
-## Slide 25 – Projektstruktur – overordnet
+## Slide 27 – Projektstruktur – overordnet
 
 **Fortæl:** Når et projekt bliver større, er det almindeligt at bruge en struktur som denne:
 
@@ -361,7 +397,7 @@ Gå ikke i detaljer med `pyproject.toml` eller installation af packages. Pointen
 - *Hvad gør `__init__.py`?* – Den markerer mappen som en package. Den kan være tom.
 - *Hvorfor `src/`-mappen?* – Den sikrer, at koden testes, som den bliver installeret, og ikke tilfældigt fra den aktuelle mappe. For små projekter er en flad struktur også fin.
 
-## Slide 26 – Refactoring i små skridt
+## Slide 28 – Refactoring i små skridt
 
 **Fortæl:** Refactoring betyder at forbedre strukturen uden at ændre, hvad koden gør. Resultatet skal være det samme før og efter.
 
@@ -375,9 +411,9 @@ Kobl til Git: Hvert commit er et sikkert punkt. Små commits med klare beskeder 
 - *Må jeg rette fejl, mens jeg refaktorerer?* – Hold det adskilt. Ret fejlen i et separat commit, så det er tydeligt, hvad der ændrer adfærd, og hvad der kun ændrer struktur.
 - *Kan VS Code hjælpe?* – Ja, fx med **Rename Symbol** (`F2`), som omdøber en variabel eller funktion alle steder.
 
-## Slide 27 – Øvelse: refaktorér scriptet
+## Slide 29 – Øvelse: refaktorér scriptet
 
-**Fortæl:** Deltagerne arbejder to og to i 25 minutter med det udleverede script. De opretter først en branch, så `main` forbliver uændret.
+**Fortæl:** Deltagerne arbejder to og to i 25 minutter med `adresse_script.py`. De opretter først en branch, så `main` forbliver uændret.
 
 Forventningen er ikke, at alle når alle trin. Trin 2 og 3 er det vigtigste. Opdeling i moduler er en bonus.
 
@@ -391,7 +427,7 @@ Rød baggrund markerer, at deltagerne løser opgaven selv.
 - *Vi har ødelagt noget – hvad nu?* – Brug `git status` og `git diff` til at se ændringerne. `git restore <fil>` går tilbage til sidste commit for filen.
 - *Skal vi lave en PR?* – Ikke nødvendigvis nu. Branch og commits er nok. PR'er øves i den samlede øvelse.
 
-## Slide 28 – Forslag til løsning: main.py
+## Slide 30 – Forslag til løsning: main.py
 
 **Fortæl:** Vis `main.py` og bed et par grupper fortælle, hvordan de løste opgaven, før løsningsforslaget gennemgås.
 
@@ -458,13 +494,13 @@ Bemærk forskellene fra det oprindelige script: Stierne findes ud fra placeringe
 - *Vi har lavet det anderledes – er det forkert?* – Ikke hvis resultatet er det samme, og koden er lettere at forstå. Der er mange gode løsninger.
 - *Hvorfor ikke en class her?* – Funktionerne har ingen tilstand, så funktioner er det enkleste valg. Det kobler til OOP-afsnittet, der kommer nu.
 
-## Slide 29 – OOP: class eller funktion?
+## Slide 31 – OOP: class eller funktion?
 
 Sektionsslide. Afsnittet varer ca. 35 minutter: ca. 20 minutters oplæg med eksempler, 10 minutters diskussionsøvelse og 5 minutters fælles gennemgang.
 
 Sæt forventningen: Deltagerne har erfaring med Python, men har måske ikke selv skrevet classes. Målet er ikke at lære al OOP-teori, men at kunne **vurdere, hvornår en class gør koden bedre** – og hvornår en funktion er det enkleste og bedste valg. Eksemplerne ligner den type kode, der bruges i ETL-jobs: læsning af filer, rensning og validering af data.
 
-## Slide 30 – Ikke alt skal være en class
+## Slide 32 – Ikke alt skal være en class
 
 **Fortæl:** Python er ikke et sprog, hvor alt skal pakkes ind i classes. Meget god Python-kode består primært af funktioner og moduler. Classes er et værktøj, man tager frem, når det giver en konkret fordel.
 
@@ -477,7 +513,7 @@ Kobl gerne til det forrige afsnit om struktur: En class er en måde at gruppere 
 - *Er OOP ikke "den rigtige måde" at programmere på?* – Nej, det er én måde blandt flere. Python understøtter både funktioner og classes, og god kode kombinerer dem efter behov.
 - *Bruger biblioteker, vi kender, classes?* – Ja, fx er en `DataFrame` i pandas eller et lag i PyQGIS objekter. Man bruger ofte classes uden selv at skrive dem.
 
-## Slide 31 – Funktioner er ofte nok
+## Slide 33 – Funktioner er ofte nok
 
 **Fortæl:** De to funktioner tager en værdi ind og returnerer et resultat. De husker ikke noget mellem kaldene og ændrer ikke noget uden for sig selv. Det kaldes ofte en *ren funktion*.
 
@@ -490,7 +526,7 @@ Fordelene: Funktionerne er lette at forstå, teste og genbruge i forskellige job
 - *Hvad betyder `-> str` og `: str`?* – Det er type hints. De fortæller, hvilke typer funktionen forventer og returnerer. Python håndhæver dem ikke, men editoren og andre udviklere har gavn af dem.
 - *Hvor skal sådanne funktioner ligge?* – Samlet i et modul med et sigende navn, fx `validering.py`, så de kan importeres, hvor der er brug for dem.
 
-## Slide 32 – Hvad er en class?
+## Slide 34 – Hvad er en class?
 
 **Fortæl:** En class er en skabelon, der samler **data** (attributter) og **adfærd** (metoder). Ud fra skabelonen laver man konkrete *objekter*, også kaldet instanser.
 
@@ -512,7 +548,7 @@ Eksemplet er bevidst enkelt. I praksis vil man ofte bruge modulet `csv`, som hå
 - *Hvad er forskellen på en funktion og en metode?* – En metode er en funktion, der hører til en class og arbejder på et objekt via `self`.
 - *Hvad betyder de dobbelte understreger i `__init__`?* – Det er Pythons særlige metoder, som Python selv kalder i bestemte situationer. `__init__` kaldes, når objektet oprettes.
 
-## Slide 33 – Tegn på, at en class kan hjælpe
+## Slide 35 – Tegn på, at en class kan hjælpe
 
 **Fortæl:** Gennemgå de fire tegn med konkrete eksempler fra ETL-verdenen:
 
@@ -528,7 +564,7 @@ Understreg, at ét tegn ikke automatisk betyder, at man skal skrive en class. De
 - *Hvad er "tilstand"?* – Data, der huskes og kan ændre sig over tid, mens programmet kører, fx om en forbindelse er åben, eller hvor mange rækker der er behandlet.
 - *Kunne man ikke bare bruge globale variabler til tilstand?* – Det virker i små scripts, men gør koden svær at teste og genbruge, fordi alle funktioner kan ændre dem. En class gør det tydeligt, hvem der ejer tilstanden.
 
-## Slide 34 – Før: de samme argumenter igen og igen
+## Slide 36 – Før: de samme argumenter igen og igen
 
 **Fortæl:** Her har vi tre funktioner, der alle skal have de samme tre oplysninger om filen. `...` betyder blot, at indholdet er udeladt på sliden.
 
@@ -541,7 +577,7 @@ Spørg deltagerne, om de kender mønsteret fra deres egen kode.
 - *Kunne man ikke bare samle argumenterne i en `dict`?* – Jo, og det er et skridt i den rigtige retning. Men en `dict` giver ingen hjælp fra editoren ved stavefejl i nøgler. En dataclass eller en class er tydeligere.
 - *Er det forkert at have funktioner med mange argumenter?* – Ikke forkert, men mange gentagne argumenter er et tegn på, at noget hører sammen og kunne samles.
 
-## Slide 35 – Efter: opsætningen samlet ét sted
+## Slide 37 – Efter: opsætningen samlet ét sted
 
 **Fortæl:** Opsætningen gives nu én gang, når objektet oprettes. Metoderne henter oplysningerne fra `self`, så kaldene bliver korte, og opsætningen er altid den samme for den samme kilde.
 
@@ -554,7 +590,7 @@ Bemærk også, at `valider_kolonner` stadig tager `kolonner` som argument, fordi
 - *Hvordan ved jeg, hvad der skal være attribut, og hvad der skal være argument?* – Det, der beskriver objektet og er det samme hver gang, bliver attribut. Det, der ændrer sig fra kald til kald, bliver argument.
 - *Bliver koden ikke længere?* – Selve definitionen kan blive lidt længere, men den kode, der bruger kilden, bliver kortere og mere overskuelig.
 
-## Slide 36 – Dataclasses til strukturerede data
+## Slide 38 – Dataclasses til strukturerede data
 
 **Fortæl:** En dataclass er en enkel måde at lave en class, der primært holder data. `@dataclass` genererer automatisk `__init__` og en læsbar tekstvisning ud fra felterne, så man ikke skal skrive det selv.
 
@@ -568,7 +604,7 @@ Dataclasses er velegnede til fx rækker, poster eller opsætning, der sendes mel
 - *Kontrollerer Python typerne?* – Nej, type hints håndhæves ikke under kørsel. De er dokumentation og hjælp til editoren og værktøjer.
 - *Kan man forhindre, at felterne ændres?* – Ja, med `@dataclass(frozen=True)`. Det er nyttigt, når data ikke bør ændres undervejs.
 
-## Slide 37 – Composition frem for arv
+## Slide 39 – Composition frem for arv
 
 **Fortæl:** *Composition* betyder, at et objekt er bygget af andre objekter. Et `Job` **har** en kilde og en validator og bruger dem. `Validator` er her en anden class, som vi forestiller os har en metode `er_gyldig`; den er udeladt på sliden.
 
@@ -581,7 +617,7 @@ Fordelene: Delene kan udskiftes, fx en anden kilde eller en strengere validator,
 - *Hvornår er arv så en god idé?* – Når der er et tydeligt "er en"-forhold, og underklassen kun tilføjer eller tilpasser lidt. Det ses ofte, når et bibliotek eller framework lægger op til det.
 - *Hvad er forskellen på "har en" og "er en"?* – Et job *har en* kilde (composition). En CSV-kilde *er en* slags kilde (arv). Hvis "har en" passer, er composition som regel det bedste valg.
 
-## Slide 38 – Faresignal: en class, der burde være en funktion
+## Slide 40 – Faresignal: en class, der burde være en funktion
 
 **Fortæl:** Denne class gør præcis det samme som `rens_postnummer` fra tidligere, men kræver at man først opretter et objekt og derefter kalder en metode. Der er ingen tilstand, der skal huskes, og ingen fordel ved at have et objekt.
 
@@ -594,7 +630,7 @@ Nævn også andre faresignaler: dybe arvehierarkier, classes med vage navne som 
 - *Men hvad nu hvis jeg senere får brug for en class?* – Så kan man lave om. Det er lettere at gå fra en simpel funktion til en class end at fjerne unødvendig kompleksitet. Byg til det behov, der er nu.
 - *Er det forkert at have en `utils.py`?* – Ikke nødvendigvis, men den har det med at vokse sig stor og uoverskuelig. Moduler med sigende navne er bedre.
 
-## Slide 39 – Tommelfingerregel
+## Slide 41 – Tommelfingerregel
 
 **Fortæl:** Opsummér afsnittet med tabellen:
 
@@ -610,7 +646,7 @@ Afslut med "Start enkelt": Begynd med funktioner, og lav en class, når koden vi
 - *Hvad med static methods og class methods?* – Det er metoder, der ikke bruger et konkret objekt. De har deres brug, men de springes over i dag for at holde fokus på grundvalget.
 - *Hvad med properties?* – Properties gør det muligt at beregne en værdi, når en attribut læses. Det er nyttigt, men ikke nødvendigt for at komme i gang.
 
-## Slide 40 – Øvelse: class eller funktion?
+## Slide 42 – Øvelse: class eller funktion?
 
 **Fortæl:** Deltagerne diskuterer to og to i 10 minutter. De skal vælge funktion, class eller dataclass til hvert scenarie og kunne begrunde valget. Der skal ikke skrives kode.
 
@@ -623,7 +659,7 @@ Rød baggrund markerer, at deltagerne løser opgaven selv.
 - *Skal vi skrive koden?* – Nej, det er en diskussionsøvelse. Fokus er på valget og begrundelsen.
 - *Må vi vælge noget, der ikke står på listen?* – Ja, fx en kombination. Det vigtige er, at I kan forklare hvorfor.
 
-## Slide 41 – Forslag til løsning
+## Slide 43 – Forslag til løsning
 
 **Fortæl:** Gennemgå forslagene og bed nogle par om deres begrundelser først.
 
@@ -639,7 +675,7 @@ Understreg, at der ikke er ét rigtigt svar. Det vigtigste er at kunne begrunde 
 - *Vi valgte noget andet – er det forkert?* – Ikke nødvendigvis. Hvis begrundelsen holder, og koden bliver lettere at forstå, er det et fint valg.
 - *Hvordan håndterer man lukning af forbindelsen?* – Ofte med en `with`-blok, så forbindelsen lukkes automatisk, også ved fejl. Det kommer vi ikke i dybden med i dag.
 
-## Slide 42 – Tests
+## Slide 44 – Tests
 
 Sektionsslide. Afsnittet varer ca. 40 minutter: ca. 15 minutters oplæg, 20 minutters øvelse og 5 minutters gennemgang.
 
@@ -647,7 +683,7 @@ Introducér tests som en hjælp til det, vi lige har gjort: Når vi refaktorerer
 
 **Forberedelse:** pytest skal kunne installeres i deltagernes Python-miljø. Er der ikke internetadgang, skal det være installeret på forhånd.
 
-## Slide 43 – Hvorfor tests?
+## Slide 45 – Hvorfor tests?
 
 **Fortæl:** En test er kode, der kalder vores kode med et kendt input og kontrollerer, at resultatet er det forventede.
 
@@ -661,7 +697,7 @@ Introducér tests som en hjælp til det, vi lige har gjort: Når vi refaktorerer
 - *Tager det ikke lang tid at skrive tests?* – Lidt, men det sparer tid senere, fordi fejl findes tidligt. Start med de vigtigste regler.
 - *Kan tests bevise, at koden er fejlfri?* – Nej. De viser kun, at de afprøvede tilfælde virker. Derfor er det vigtigt at vælge gode eksempler.
 
-## Slide 44 – En test er bare en funktion
+## Slide 46 – En test er bare en funktion
 
 **Fortæl:** Med pytest er en test en almindelig funktion, hvis navn starter med `test_`, i en fil, hvis navn starter med `test_`. pytest finder og kører dem automatisk.
 
@@ -674,7 +710,7 @@ Testens navn bør beskrive, hvad der testes, så man kan forstå fejlen ud fra n
 - *Hvad er forskellen på pytest og `unittest`?* – `unittest` er indbygget i Python, men kræver mere kode. pytest er mere udbredt og enklere at komme i gang med. pytest kan også køre `unittest`-tests.
 - *Må testnavnet være så langt?* – Ja. Det kaldes aldrig fra anden kode, så tydelighed er vigtigere end korthed.
 
-## Slide 45 – Kør tests med pytest
+## Slide 47 – Kør tests med pytest
 
 **Fortæl:** pytest installeres én gang i projektets miljø med `pip install pytest`. `python -m pytest` køres fra projektets rodmappe og finder selv alle tests.
 
@@ -690,7 +726,7 @@ VS Code har også et **Testing**-panel, hvor tests kan køres og debugges med et
 - *Hvorfor findes `pytest` ikke?* – Den er ikke installeret i det aktive miljø. Kontrollér miljøet, og kør `pip install pytest`.
 - *Kan jeg køre én bestemt test?* – Ja, fx `python -m pytest tests/test_validering.py` eller med `-k` og en del af testnavnet.
 
-## Slide 46 – Når en test fejler
+## Slide 48 – Når en test fejler
 
 **Fortæl:** Outputtet er reelt pytest-output fra en version af `rens_postnummer`, hvor `zfill(4)` er fjernet. Gennemgå, hvordan det læses:
 
@@ -708,7 +744,7 @@ pytest viser også en linje-for-linje-sammenligning af de to værdier. Den er ud
 - *Hvad gør jeg, hvis testen er forkert?* – Ret testen, men vær sikker på, hvad det rigtige resultat er. Spørg gerne en kollega.
 - *Må jeg slette en test, der fejler?* – Kun hvis den tester noget, der ikke længere gælder. Ellers skjuler man en fejl.
 
-## Slide 47 – Hvad skal man teste?
+## Slide 49 – Hvad skal man teste?
 
 **Fortæl:** Fokusér på funktioner med regler og logik, som rensning og validering. Det er her, fejl typisk opstår, og hvor tests giver mest værdi.
 
@@ -722,7 +758,7 @@ Når man finder en fejl, er det en god vane at skrive en test, der fanger den, f
 - *Skal hvert tilfælde have sin egen test?* – Det giver mere præcise fejlbeskeder, men flere `assert` i én test er fint at starte med. pytest kan også køre den samme test med flere værdier via `@pytest.mark.parametrize`.
 - *Hvordan tester jeg noget, der læser filer?* – pytest har en indbygget `tmp_path`, som giver en midlertidig mappe. Det er et emne til senere.
 
-## Slide 48 – Unit- og integrationstests
+## Slide 50 – Unit- og integrationstests
 
 **Fortæl:** En *unit test* tester én funktion isoleret. Den er hurtig, og når den fejler, er det tydeligt, hvor fejlen er. Rene funktioner uden sideeffekter er lettest at unit-teste – derfor er adskillelsen af regler og sideeffekter fra refactoring-afsnittet så nyttig.
 
@@ -735,7 +771,7 @@ Anbefal at starte med unit tests af reglerne og eventuelt én integrationstest a
 - *Hvilken type er vigtigst?* – Begge har værdi. Mange unit tests og få integrationstests er en god tommelfingerregel.
 - *Kan man teste mod den rigtige database?* – Det er muligt, men det gør testene langsomme og afhængige af data. Brug små testdata, hvor det er muligt.
 
-## Slide 49 – Tests og refactoring
+## Slide 51 – Tests og refactoring
 
 **Fortæl:** Tests og refactoring hænger tæt sammen. Kør testene før refactoring for at sikre, at de består. Refaktorér, og kør dem igen. Består de stadig, har ændringen ikke ændret den adfærd, testene dækker. Så kan der committes.
 
@@ -746,7 +782,7 @@ Gør opmærksom på begrænsningen: Testene beskytter kun det, de tester. Derfor
 - *Hvad hvis der ikke er tests til den kode, jeg skal ændre?* – Skriv nogle få tests af den nuværende adfærd først. Så har du et sikkerhedsnet.
 - *Skal tests køres automatisk?* – Det er en god idé, fx når der oprettes en PR. Mange Git-platforme kan sættes op til det. Det ligger uden for dagens emne.
 
-## Slide 50 – Øvelse: skriv jeres første tests
+## Slide 52 – Øvelse: skriv jeres første tests
 
 **Fortæl:** Deltagerne arbejder to og to i 20 minutter i deres refaktorerede projekt. Har en gruppe ikke nået at udtrække funktionerne, kan de bruge løsningsforslaget fra refactoring-afsnittet.
 
@@ -759,7 +795,7 @@ Typiske udfordringer: Importfejl, fordi pytest køres fra en forkert mappe eller
 - *pytest finder ingen tests – hvorfor?* – Kontrollér, at både fil og funktion starter med `test_`, og at der køres fra projektets rodmappe.
 - *Skal tests i Git?* – Ja, testene er en del af koden og skal deles med teamet.
 
-## Slide 51 – Forslag til løsning
+## Slide 53 – Forslag til løsning
 
 **Fortæl:** Gennemgå løsningen og bed et par grupper vise ekstra tests, de har skrevet. Diskutér, hvilke kanttilfælde der er dækket, og hvilke der mangler, fx `None` eller et postnummer med mellemrum i midten.
 
@@ -770,7 +806,7 @@ Løsningen er kørt med pytest og består.
 - *Hvorfor tester `rens_postnummer` kun ét tilfælde?* – Det er et minimum. Gode tilføjelser er en værdi, der allerede er korrekt, og en værdi med mellemrum på begge sider.
 - *Hvad sker der med `None`?* – `rens_postnummer(None)` giver en fejl, fordi `None` ikke har `strip()`. Om det skal håndteres, afhænger af, hvad data kan indeholde. En test kan dokumentere beslutningen.
 
-## Slide 52 – Afvikling i ETL og fejlfinding i VS Code
+## Slide 54 – Afvikling i ETL og fejlfinding i VS Code
 
 Sektionsslide. Afsnittet varer ca. 35 minutter: ca. 20 minutters oplæg og demonstration og 15 minutters øvelse.
 
@@ -778,9 +814,9 @@ Introducér afsnittet: Deltagernes Python-kode køres ikke kun af dem selv, men 
 
 Afstem på forhånd, hvordan deltagernes ETL-værktøj kalder Python: Starter det et script, importerer det et modul og kalder en funktion, eller kører det kode indlejret i værktøjet? Tilpas eksemplerne derefter.
 
-**Forberedelse:** Til øvelsen skal der udleveres en version af scriptet med en bevidst fejl, der giver et forkert resultat uden at fejle, fx at postnummeret læses fra den forkerte kolonne.
+**Forberedelse:** Udlever `ovelser/debugging/start/` til øvelsen (øvelse 5 i øvelsesvejledningen). Det er refactoring-løsningen med en bevidst fejl, der giver et forkert resultat uden at fejle.
 
-## Slide 53 – Python i et ETL-værktøj
+## Slide 55 – Python i et ETL-værktøj
 
 **Fortæl:** I et ETL-miljø er det værktøjet, der starter koden – typisk ved at køre et script eller ved at importere et modul og kalde en funktion. Koden kører ofte på en server, under en anden bruger og fra en anden mappe end på udviklerens egen maskine.
 
@@ -791,7 +827,7 @@ Derfor skal koden være robust over for, hvem og hvorfra den kaldes, og fejl ska
 - *Hvordan finder jeg ud af, hvordan vores værktøj kalder koden?* – Se værktøjets dokumentation eller konfigurationen af jobbet, eller spørg den, der har sat det op.
 - *Hvad hvis koden er skrevet direkte i værktøjet?* – Så gælder de samme principper. Det kan dog være en fordel at flytte koden ud i moduler, så den kan versionsstyres og testes.
 
-## Slide 54 – Ét tydeligt entry point
+## Slide 56 – Ét tydeligt entry point
 
 **Fortæl:** Et *entry point* er det sted, hvor afviklingen starter. Det er en god praksis at samle det i en `main`-funktion.
 
@@ -804,7 +840,7 @@ Når Python importerer et modul, køres al kode på modulniveau. Står der fx ko
 - *Hvad skal stå i `main`?* – Det overordnede forløb: opsætning, kald af de vigtigste funktioner og eventuelt logging af resultatet.
 - *Hvad hvis værktøjet kalder en funktion i stedet for at køre filen?* – Så er funktionen entry pointet. Den skal kunne kaldes direkte og må ikke afhænge af, at `main` er kørt først.
 
-## Slide 55 – Undgå antagelser om afviklingen
+## Slide 57 – Undgå antagelser om afviklingen
 
 **Fortæl:** Kode, der virker på udviklerens maskine, kan fejle i ETL-værktøjet, fordi forudsætningerne er anderledes:
 
@@ -818,7 +854,7 @@ Når Python importerer et modul, køres al kode på modulniveau. Står der fx ko
 - *Hvorfor `pathlib` frem for tekststrenge?* – `Path` håndterer stier på tværs af styresystemer og gør det let at sammensætte stier med `/`.
 - *Hvor skal stier til produktion stå?* – I konfiguration, fx en fil eller miljøvariabler, så de kan ændres uden at ændre koden.
 
-## Slide 56 – Hvad er offentligt i et modul?
+## Slide 58 – Hvad er offentligt i et modul?
 
 **Fortæl:** Python har ingen egentlig "privat", men der er en stærk konvention: Navne, der starter med `_`, er interne og kan ændres uden varsel. Navne uden `_` er beregnet til at blive brugt udefra.
 
@@ -831,7 +867,7 @@ Docstringen under `koer_job` beskriver, hvad funktionen gør, og hvad den return
 - *Kan man forhindre, at nogen kalder en funktion med `_`?* – Nej, det er en konvention, ikke en spærring. Men den signalerer tydeligt, at funktionen ikke er beregnet til brug udefra.
 - *Hvad hvis jeg er nødt til at ændre en offentlig funktion?* – Find ud af, hvilke jobs der bruger den, og ændr dem samtidig. Eller lav en ny funktion, og udfas den gamle.
 
-## Slide 57 – Logging frem for print
+## Slide 59 – Logging frem for print
 
 **Fortæl:** `print` skriver til konsollen, som ingen nødvendigvis ser i et ETL-miljø. `logging` er Pythons indbyggede system til log-beskeder. Beskederne har niveauer, så man kan vælge, hvor meget der skal vises, og værktøjet kan ofte opsamle dem.
 
@@ -847,7 +883,7 @@ Niveauerne kort: `debug` til detaljer under fejlfinding, `info` til normale hæn
 - *Hvorfor ikke f-strings i log-beskeder?* – Det virker også. Pladsholderne er den traditionelle form og udfyldes kun, hvis beskeden faktisk logges.
 - *Kan jeg logge til en fil?* – Ja, med `logging.basicConfig(filename="job.log")`. Men ofte er det bedre at lade værktøjet håndtere loggen.
 
-## Slide 58 – Fejl skal være synlige
+## Slide 60 – Fejl skal være synlige
 
 **Fortæl:** Når der opstår en fejl, er det vigtigste, at den bliver synlig. Eksemplet fanger kun `FileNotFoundError`, logger en forklarende besked og sender fejlen videre med `raise`, så jobbet stadig fejler, og værktøjet kan registrere det.
 
@@ -861,7 +897,7 @@ Pointe: Et job, der stopper med en tydelig fejl, er bedre end et, der stille lev
 - *Hvad gør `raise` uden noget efter?* – Den sender den samme fejl videre, efter at vi har logget den.
 - *Hvordan ser værktøjet, at jobbet fejlede?* – Typisk via en exit-kode, der ikke er 0, eller via en exception, når værktøjet kalder en funktion. En ufanget fejl sørger for det.
 
-## Slide 59 – VS Code: det rigtige Python-miljø
+## Slide 61 – VS Code: det rigtige Python-miljø
 
 **Fortæl:** Et *virtuelt miljø* er en separat Python-installation til et projekt med dets egne pakker. Så påvirker projekterne ikke hinanden, og man kan matche de pakker, ETL-miljøet har.
 
@@ -879,7 +915,7 @@ Brug om muligt samme Python-version som ETL-værktøjet, så man ikke bruger fun
 - *Aktiveringen fejler i PowerShell – hvorfor?* – PowerShell kan blokere scripts. Brug kommandoprompten, eller få hjælp til at ændre indstillingen efter organisationens regler.
 - *Hvordan ser jeg, hvilken Python der bruges?* – `python --version` og `python -c "import sys; print(sys.executable)"` i terminalen, eller statuslinjen i VS Code.
 
-## Slide 60 – Debuggeren i VS Code
+## Slide 62 – Debuggeren i VS Code
 
 **Fortæl:** En debugger stopper programmet på en bestemt linje, så man kan se værdierne af variablerne og følge koden linje for linje. Det er ofte hurtigere end at sprede `print` ud i koden.
 
@@ -902,7 +938,7 @@ Sliden mangler et skærmbillede af VS Code under debugging. Tag det fra demonstr
 - *Kan breakpoints have betingelser?* – Ja, højreklik på breakpointet og vælg en betingelse, fx at stoppe, når postnummeret er tomt.
 - *Debuggeren stopper ikke – hvorfor?* – Kontrollér, at det er den rigtige fil, der startes, at linjen faktisk køres, og at den rigtige interpreter er valgt.
 
-## Slide 61 – Debug koden, som værktøjet kører den
+## Slide 63 – Debug koden, som værktøjet kører den
 
 **Fortæl:** Fejl, der kun opstår i ETL-værktøjet, skyldes ofte forskelle i afviklingen, fx arbejdsmappe eller miljøvariabler. En *launch configuration* i `.vscode/launch.json` gør det muligt at starte debuggeren under de samme forhold.
 
@@ -920,22 +956,22 @@ Hvis værktøjet importerer et modul og kalder en funktion, kan man i stedet skr
 - *Skal `launch.json` i Git?* – Det kan være nyttigt at dele den med teamet, men den må ikke indeholde adgangskoder eller andre hemmeligheder.
 - *Kan man debugge direkte på serveren?* – Det er muligt, men mere avanceret. Prøv først at genskabe forholdene lokalt, og brug loggen fra værktøjet.
 
-## Slide 62 – Øvelse: find fejlen med debuggeren
+## Slide 64 – Øvelse: find fejlen med debuggeren
 
-**Fortæl:** Deltagerne arbejder to og to i 15 minutter med en version af scriptet, der giver et forkert resultat uden at fejle. De skal finde fejlen med debuggeren – ikke ved at læse koden igennem eller tilføje `print`.
+**Fortæl:** Deltagerne arbejder to og to i 15 minutter med `ovelser/debugging/start/`, som giver et forkert resultat uden at fejle. De skal finde fejlen med debuggeren – ikke ved at læse koden igennem eller tilføje `print`.
 
 Trin 4 kobler til testafsnittet: Når fejlen er fundet, skrives en test, der havde fanget den. Så kommer den ikke igen.
 
 Gennemgå til sidst kort, hvordan fejlen blev fundet: Hvor blev breakpointet sat? Hvilken variabel afslørede fejlen?
 
-Øvelsens script med fejl er endnu ikke udarbejdet. Et forslag er at lade `POSTNUMMER_KOLONNE` være 1, så husnummeret behandles som postnummer.
+Fejlen i `ovelser/debugging/start/` er, at `POSTNUMMER_KOLONNE` i `config.py` er sat til `1`. Husnummeret behandles derfor som postnummer: Alle fire rækker kommer med, husnumrene får nuller foran (`0012`), og postnumrene renses ikke. Et breakpoint i `rens_raekke` viser hurtigt, at det er `'12'` og ikke `' 800'`, der sendes til `rens_postnummer`. Testen `rens_raekke(["Søndergade", "12", " 800"]) == ["Søndergade", "12", "0800"]` fanger fejlen. Bemærk, at testene fra test-øvelsen ikke fanger den, fordi `rens_postnummer` og `er_gyldigt_postnummer` virker fint – en god pointe om at teste de funktioner, der binder reglerne sammen.
 
 **Mulige spørgsmål**
 
 - *Hvor skal vi sætte breakpointet?* – Start, hvor resultatet bliver forkert, fx i rensning eller validering, og gå baglæns, hvis det ikke afslører noget.
 - *Vi fandt fejlen ved at læse koden – er det snyd?* – Nej, men prøv alligevel debuggeren, så I kender den, når koden er større.
 
-## Slide 63 – Samlet praktisk øvelse
+## Slide 65 – Samlet praktisk øvelse
 
 Sektionsslide. Øvelsen varer 90 minutter og samler hele dagen i ét forløb. Deltagerne arbejder to og to i et fælles Bitbucket-repository som et lille team, der vedligeholder adresse-jobbet. Hver person løser opgaver på sin egen branch, opretter pull requests og reviewer makkerens ændringer.
 
@@ -948,7 +984,7 @@ Sektionsslide. Øvelsen varer 90 minutter og samler hele dagen i ét forløb. De
 
 Deltagerne bruger VS Codes indbyggede Git-klient til at tale med Bitbucket. Pull requests oprettes, reviewes og merges i Bitbucket i browseren. Revert kræver terminalen, da VS Code ikke har en indbygget kommando til at reverte et merge-commit.
 
-## Slide 64 – Adresse-jobbet i produktion
+## Slide 66 – Adresse-jobbet i produktion
 
 **Fortæl:** Præsentér scenariet: Holdet har overtaget adresse-jobbet fra refactoring-afsnittet. Driften og leverandøren sender opgaver, som løses én ad gangen. Opgavesedlerne ligger i `opgaver/` i repositoryet.
 
@@ -970,7 +1006,7 @@ Sammenhæng med dagens emner:
 - *Hvad hvis vi ikke når det hele?* – Det er helt fint. Runde 1 og 2 er det vigtigste. Opgave 5 kan også vises som demonstration.
 - *Må vi hjælpe hinanden?* – Ja, gerne. Men skriv selv koden på jeres egen opgave, og brug reviewet til at forstå makkerens.
 
-## Slide 65 – Kom i gang
+## Slide 67 – Kom i gang
 
 **Fortæl:** Deltagerne kloner holdets repository i VS Code med **Git: Clone** og indsætter adressen fra Bitbucket (knappen **Clone** på repositoryets side). VS Code spørger, hvor det skal gemmes, og om det skal åbnes.
 
@@ -984,7 +1020,7 @@ Bed dem lægge mærke til resultatfilen `data/resultat.csv`: *Vestergade* mangle
 - *Aktiveringen af `.venv` fejler i PowerShell.* – Brug kommandoprompten i VS Code-terminalen, eller spring aktiveringen over og vælg interpreteren i VS Code. Så bruger nye terminaler miljøet automatisk.
 - *Skal `.venv` committes?* – Nej, den står i `.gitignore`.
 
-## Slide 66 – Arbejdsgangen for hver opgave
+## Slide 68 – Arbejdsgangen for hver opgave
 
 **Fortæl:** Gennemgå flowet, som gentages for hver opgave. Vis det gerne live i VS Code:
 
@@ -1002,7 +1038,7 @@ Terminalkolonnen viser de samme trin med kommandoer, som deltagerne kender fra G
 - *Hvad er forskellen på Sync og Push?* – **Sync Changes** både henter (pull) og sender (push). Push sender kun.
 - *Kan PR'en oprettes fra VS Code?* – Med Atlassians udvidelse *Jira and Bitbucket* kan det lade sig gøre, men i øvelsen bruger vi Bitbucket i browseren.
 
-## Slide 67 – Review i Bitbucket
+## Slide 69 – Review i Bitbucket
 
 **Fortæl:** Review er en central del af øvelsen. Reviewer læser ændringerne i PR'ens **Diff** og kan kommentere på enkelte linjer. Gennemgå punkterne kort.
 
@@ -1016,7 +1052,7 @@ Når reviewer er tilfreds, klikkes **Approve**, og PR'en merges med strategien *
 - *Hvad hvis vi er uenige?* – Diskutér det i PR'en eller ansigt til ansigt. Opgavesedlen er afgørende for, hvad der skal laves.
 - *Hvad betyder merge-strategierne?* – **Merge commit** bevarer branchens commits og laver et merge-commit. **Squash** samler alle commits i ét. Vi bruger merge commit, så revert i opgave 5 virker som beskrevet.
 
-## Slide 68 – Runde 1 · 30 min.
+## Slide 70 – Runde 1 · 30 min.
 
 **Fortæl:** Person A tager opgave 1, person B opgave 2. Hver følger opgavesedlen. Når begge PR'er er merget, henter begge `main`.
 
@@ -1036,7 +1072,7 @@ Gå rundt og hjælp. Typiske udfordringer: Branch oprettet fra en forældet `mai
 - *Skal `koer_job` have type hints som `Path` eller `str`?* – Begge virker, fordi `open` accepterer begge. `Path` passer til `config.py`.
 - *Hvordan tester jeg den manglende fil?* – Kald `koer_job` med en sti, der ikke findes, fx fra en lille testfil eller Debug Console. Bonusopgaven viser, hvordan det kan blive en test.
 
-## Slide 69 – Runde 2 · 30 min.
+## Slide 71 – Runde 2 · 30 min.
 
 **Fortæl:** Begge starter fra en opdateret `main`, så runde 1 er med. Person A tager opgave 3, person B opgave 4. Fortæl åbent, at de vil få en konflikt – det er meningen.
 
@@ -1051,7 +1087,7 @@ Hold øje med, hvem der merger først. Den, der merger sidst, skal løse konflik
 - *Kan vi undgå konflikten ved at vente på hinanden?* – Ja, og det er en god strategi i praksis. Her er konflikten med vilje, så I prøver at løse en.
 - *Skal `fra_raekke` håndtere rækker med for få felter?* – Ikke i opgaven. Men det er et godt spørgsmål – og det viser sig i opgave 5.
 
-## Slide 70 – Konflikt? Sådan gør I
+## Slide 72 – Konflikt? Sådan gør I
 
 **Fortæl:** Den, der merger sidst, ser i Bitbucket, at PR'en har konflikter og ikke kan merges. Konflikten løses lokalt på branchen:
 
@@ -1081,7 +1117,7 @@ Forventet resultat efter runde 2: 5 tests består, og jobbet skriver 3 af 5 ræk
 - *Hvorfor skal A's test ændres, når den ikke var i konflikt med vores?* – Fordi `er_gyldig` nu tager en `Adresse`. Teksten kunne flettes, men koden passer ikke sammen. Testene fanger netop den slags.
 - *Vi har lavet noget forkert midt i konflikten – hvad nu?* – `git merge --abort` sætter branchen tilbage til før merge. Så kan I starte forfra.
 
-## Slide 71 – Ups! · 10 min.
+## Slide 73 – Ups! · 10 min.
 
 **Fortæl:** Udlever opgaveseddel 5 eller vis sliden. Lad holdet gennemføre ændringen hurtigt: branch, ret `SEPARATOR` til `","`, PR, godkendelse og merge.
 
@@ -1097,7 +1133,7 @@ Efter merge af fortrydelsen virker jobbet igen: 3 af 5 rækker.
 - *Git åbner en editor ved revert – hvad gør jeg?* – Git beder om en commit-besked. Gem og luk filen for at bruge standardbeskeden. Brug `--no-edit` for at springe editoren over.
 - *Hvorfor fangede testene ikke fejlen?* – De tester kun reglerne, ikke læsning af filer. En integrationstest af `koer_job` med en rigtig fil – som i bonusopgaven – ville have fanget den.
 
-## Slide 72 – Opsamling på øvelsen
+## Slide 74 – Opsamling på øvelsen
 
 **Fortæl:** Vis `git log --oneline --graph` på et af holdenes `main` – på storskærm eller i Bitbucket under **Commits**. Grafen viser branches, merge-commits, konfliktløsningen og revert'en. Brug den til at fortælle historien om, hvad holdet har lavet.
 
@@ -1113,11 +1149,11 @@ Tag derefter en kort runde med spørgsmålene. Gode pointer at få frem:
 - *Er det normalt med så mange merge-commits?* – Ja, med merge-strategien merge commit. Andre teams bruger squash for en lineær historik. Begge dele er fine – det vigtige er at være enige.
 - *Hvordan kommer vi i gang med det her i vores egne projekter?* – Start med branches og pull requests for alle ændringer, og tilføj tests til de vigtigste regler, efterhånden som I alligevel ændrer koden.
 
-## Slide 73 – Opsamling og spørgsmål
+## Slide 75 – Opsamling og spørgsmål
 
 Sektionsslide. Brug ca. 5–10 minutter. Sig tak for dagen, og forklar, at vi samler op på de vigtigste pointer, før der er tid til spørgsmål.
 
-## Slide 74 – Dagens vigtigste pointer
+## Slide 76 – Dagens vigtigste pointer
 
 **Fortæl:** Gennemgå pointerne og kobl hver af dem til det, deltagerne har prøvet i løbet af dagen:
 
